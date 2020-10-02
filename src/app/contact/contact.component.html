@@ -1,0 +1,55 @@
+<div class="float-right" style="padding-top: 80px">
+  <app-login></app-login>
+</div>
+<div class="container h-100">
+    <div class="d-flex justify-content-center h-100">
+      <div class="user_card">
+        <h2 class="text-warning text-center mb-3">Contact Form</h2>
+        <div >
+          <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            <div class="input-group mb-3">
+              <div class="input-group-append">
+                <span class="input-group-text"><fa-icon [icon]="faUser"></fa-icon></span>
+              </div>
+              <input type="text" name="Name" [(ngModel)]="model.Name" #Name="ngModel" [ngClass]="{ 'is-invalid': f.submitted && Name.invalid }" required class="form-control input" value="{{model.Name | titlecase}}" placeholder="Name">
+              <div *ngIf="f.submitted && Name.invalid" class="invalid-feedback">
+                  <div class="text-white" *ngIf="Name.errors.required">Name is required</div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-append">
+                <span class="input-group-text"><fa-icon [icon]="faEnvelope"></fa-icon></span>
+              </div>
+              <input type="email" name="email" [(ngModel)]="model.email" #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required email class="form-control input" value="{{model.email | lowercase}}" placeholder="Email">
+              <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+                  <div class="text-white" *ngIf="email.errors.required">Email is required</div>
+                  <div class="text-white" *ngIf="email.errors.email">Email must be a valid email address</div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-append">
+                  <span class="input-group-text"><fa-icon [icon]="faPhone"></fa-icon></span>
+                </div>
+                <input type="tel" name="Phone" [(ngModel)]="model.Phone" #Phone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && Phone.invalid }" required minlength="10" maxlength="10" class="form-control input" value="" placeholder="Phone No">
+                <div *ngIf="f.submitted && Phone.invalid" class="invalid-feedback">
+                    <div class="text-white" *ngIf="Phone.errors.required">Phone No is required</div>
+                    <div class="text-white" *ngIf="Phone.errors.minlength && Phone.errors.minlength">Phone No must be at 10 digits</div>
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                  <div class="input-group-append">
+                    <span class="input-group-text"><fa-icon [icon]="faQuestionCircle"></fa-icon></span>
+                  </div>
+                  <input type="text" name="Query" [(ngModel)]="model.Query" #Query="ngModel" [ngClass]="{ 'is-invalid': f.submitted && Query.invalid }" required class="form-control input" value="{{model.Query | uppercase}}" placeholder="Query">
+                  <div *ngIf="f.submitted && Query.invalid" class="invalid-feedback">
+                      <div class="text-white" *ngIf="Query.errors.required">Query is required</div>
+                  </div>
+                </div>
+            <div class="input-group mt-3">
+                <button name="button" class="btn submit_btn">Submit</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

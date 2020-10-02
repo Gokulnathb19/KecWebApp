@@ -1,0 +1,78 @@
+<!--<div>
+  <br>
+  <mat-card>
+    <mat-divider></mat-divider>
+    <br>
+    <table mat-table [dataSource]="queries">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef> Phone </th>
+        <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="query">
+        <th mat-header-cell *matHeaderCellDef> Query </th>
+        <td mat-cell *matCellDef="let element"> {{element.query}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="mat-column-right"> Actions </th>
+          <td mat-cell *matCellDef="let element" class="mat-column-right">
+            <button mat-button color="warn" (click)="deleteQuery(element._id)">Delete</button>
+          </td>
+        </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card>
+</div>-->
+<div *ngIf="readLocalStorageValue('isLoggedIn') === 'true'">
+  <div class="btn-group">
+      <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Admin</button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" (click)="logout()">Logout</a>
+          </div>
+      </div>
+      <button class="btn btn-success" (click)="backupQueries()">Backup your Queries</button>
+      <button *ngIf="!isBackupData" class="btn btn-danger" (click)="changeQueryType()">Backup Mode</button>
+      <button *ngIf="isBackupData" class="btn btn-warning" (click)="changeQueryType()">Normal Mode</button>
+  </div>
+  <br/>
+    <div>
+      <h1 *ngIf="isBackupData" class="text-danger text-center">Backup Data</h1>
+      <h1 *ngIf="!isBackupData" class="text-warning text-center">Non-Backup Data</h1>
+    </div>
+    <div class="container">
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Query</th>
+            <th *ngIf="!isBackupData">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let element of queries">
+            <td>{{element.name}}</td>
+            <td>{{element.email}}</td>
+            <td>{{element.phone}}</td>
+            <td>{{element.query}}</td>
+            <td *ngIf="!isBackupData"><button class="btn btn-primary" (click)="deleteQuery(element._id)">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
